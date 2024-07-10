@@ -22,6 +22,7 @@ SELECT * FROM dual; --SELECT is part of INSERT ALL
 SELECT * FROM adobe_transactions;
 
 SELECT customer_id,SUM(revenue) FROM adobe_transactions 
-WHERE customer_id IN (
-SELECT customer_id FROM adobe_transactions WHERE product='Photoshop')
-AND product !='Photoshop' GROUP BY customer_id ORDER BY customer_id;
+WHERE customer_id IN 
+--Subquery to get customers who bought the photoshop
+(SELECT customer_id FROM adobe_transactions WHERE product='Photoshop')
+AND product !='Photoshop' GROUP BY customer_id ORDER BY customer_id; -- Get the total sum revenue of customers who bought photoshop excluding photoshop revenue
